@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import com.google.gson.Gson;
 
 public class AddressBook {
 
@@ -59,6 +60,7 @@ public class AddressBook {
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getFirstName().equals(fname)) {
 				System.out.println(list.get(i));
+				@SuppressWarnings("resource")
 				System.out.println(
 						"Enter your choice to edit....\n1. FirstName\n2. LastName\n3. Address\n4. City\n5. State\n6. Zipcode\n7. PhoneNumber\n8. Email\n");
 				int choice = sc.nextInt();

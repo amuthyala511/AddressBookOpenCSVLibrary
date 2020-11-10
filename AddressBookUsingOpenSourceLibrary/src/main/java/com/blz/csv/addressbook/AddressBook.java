@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import com.google.gson.Gson;
 
 public class AddressBook {
 
@@ -49,6 +50,11 @@ public class AddressBook {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			try {
+				addDataToJSONFile(addressBookName);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -59,8 +65,8 @@ public class AddressBook {
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getFirstName().equals(fname)) {
 				System.out.println(list.get(i));
-				System.out.println(
-						"Enter your choice to edit....\n1. FirstName\n2. LastName\n3. Address\n4. City\n5. State\n6. Zipcode\n7. PhoneNumber\n8. Email\n");
+				@SuppressWarnings("resource")
+				System.out.println("Enter your choice to edit....\n1. FirstName\n2. LastName\n3. Address\n4. City\n5. State\n6. Zipcode\n7. PhoneNumber\n8. Email\n");
 				int choice = sc.nextInt();
 				switch (choice) {
 				case 1:
@@ -179,7 +185,7 @@ public class AddressBook {
 		list.forEach(i -> System.out.println(i));
 	}
 	
-	public static void addDataToFile(String addressBookName) {
+	public void addDataToFile(String addressBookName) {
 		System.out.println("Enter name of text file to write data: ");
 		String fileName = sc.next();
 		File file = new File("C:\\Users\\Muthyala Aishwarya\\git\\AddressBookData"+fileName+".txt");
@@ -216,7 +222,7 @@ public class AddressBook {
 		}
 	}
 	
-	public static void addDataToCSVFile(String addressBookName) throws IOException {
+	public void addDataToCSVFile(String addressBookName) throws IOException {
 		System.out.println("Enter name of CSV file to write data: ");
 		String fileName = sc.next();
 		Path filePath = Paths.get("C:\\Users\\Muthyala Aishwarya\\git\\AddressBookData"+fileName+".csv");
@@ -255,6 +261,37 @@ public class AddressBook {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void addDataToJSONFile(String addressBookName) throws IOException {
+		System.out.println("Enter name for json written file : ");
+		String fileName = sc.nextLine();
+		Path filePath = Paths.get("C:\\Users\\Muthyala Aishwarya\\git\\AddressBookData"+fileName+".json");
+		Gson gson = new Gson();
+		String json = gson.toJson(lst);
+		FileWriter writer = new FileWriter(String.valueOf(filePath));
+		writer.write(json);
+		writer.close();
+	}
+
+	public void readDataFromJSONFile() throws FileNotFoundException {
+		System.out.println("Enter address book name : ");
+		String fileName = sc.nextLine();
+		Path filePath = Paths.get("C:\\Users\\Muthyala Aishwarya\\git\\AddressBookData"+fileName+".json");
+		Gson gson = new Gson();
+		BufferedReader br = new BufferedReader(new FileReader(String.valueOf(filePath)));
+		Person[] data = gson.fromJson(br, Person[].class);
+		List<Person> lst = Arrays.asList(data);
+		for (Person details : lst) {
+			System.out.println("Firstname : " + details.firstName);
+			System.out.println("Lastname : " + details.lastName);
+			System.out.println("Address : " + details.address);
+			System.out.println("City : " + details.city);
+			System.out.println("State : " + details.state);
+			System.out.println("Zip : " + details.zip);
+			System.out.println("PhoneNumber : " + details.phno);
+			System.out.println("Email : " + details.emailId);
 		}
 	}
 }

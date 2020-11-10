@@ -142,4 +142,8 @@ public class AddressBookSystem {
 		}
 		System.out.println(addressBook.list);
 	}
+
+	public static void main(String[] args) throws IOException {
+		personData();
+	}
 }

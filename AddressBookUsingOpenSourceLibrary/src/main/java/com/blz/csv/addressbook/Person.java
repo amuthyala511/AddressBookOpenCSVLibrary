@@ -88,8 +88,8 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "AddressBook [ FirstName : " + firstName + ", LastName : " + lastName + ", Address : " + address + ", City : "
-				+ city + ", State : " + state + ", Zip : " + zip + ", PhoneNumber : " + phno + ", Email : " + emailId
-				+ " ]";
+		return "AddressBook [ FirstName : " + firstName + ", LastName : " + lastName + ", Address : " + address
+				+ ", City : " + city + ", State : " + state + ", Zip : " + zip + ", PhoneNumber : " + phno
+				+ ", Email : " + emailId + " ]";
 	}
 }
